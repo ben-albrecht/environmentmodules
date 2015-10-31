@@ -137,29 +137,94 @@ def ls(flags='-t'):
     return module('list {0}'.format(flags))
 
 
-def avail():
-    pass
+def avail(path, flags=''):
+    """
+     List  all  available  modulefiles  in the current
+     MODULEPATH, where the sorting order is  given  by
+     the LC_COLLATE locale environment variable.
 
-def use():
-    pass
+     All directories in the MODULEPATH are recursively
+     searched  for  files  containing  the  modulefile
+     magic cookie.
 
-def unuse():
-    pass
+     If  an  argument is given, then each directory in
+     the MODULEPATH is searched for modulefiles  whose
+     pathname match the argument.
+
+     Multiple   versions  of  an  application  can  be
+     supported by  creating  a  subdirectory  for  the
+     application   containing   modulefiles  for  each
+     version.
+    """
+    return module('avail {0} {1}'.format(path, flags))
+
+
+def use(directory, flags=''):
+    """
+     Prepend one or more directories to the MODULEPATH
+     environment  variable.   The  --append  flag will
+     append the directory to MODULEPATH.
+    """
+    return module('use {0} {1}'.format(directory, flags))
+
+
+def unuse(directory):
+    """
+     Remove  one  or   more   directories   from   the
+     MODULEPATH environment variable.
+    """
+    return module('unuse {0} {1}'.format(directory))
+
 
 def update():
-    pass
+    """
+     Attempt  to  reload  all loaded modulefiles.  The
+     environment will be  reconfigured  to  match  the
+     environment saved in ${HOME}/.modulesbeginenv (if
+     BEGINENV=1)   or   the   file   pointed   at   by
+     $MODULESBEGINEV    (if   BEGINENV=99)   and   the
+     modulefiles will be reloaded.  This is only valid
+     if  modules was configured with --enable-beginenv
+     (which defines  BEGINENV),  otherwise  this  will
+     cause  a  warning.   update  will only change the
+     environment variables that the modulefiles set.
+    """
+    return module('update {0} {1}'.format(directory))
+
 
 def clear():
-    pass
+    """
+     Force the Modules  package  to  believe  that  no
+     modules are currently loaded.
+    """
+    return module('clear')
+
 
 def purge():
-    pass
+    """Unload all loaded modulefiles."""
+    return module('purge')
+
 
 def refresh():
-    pass
+    """
+     Force  a refresh of all non-persistent components
+     of currently loaded modules.  This should be used
+     on  derived  shells  where  aliases  need  to  be
+     reinitialized but the environment variables  have
+     already been set by the currently loaded modules.
+    """
+    return module('refresh')
 
-def whatis():
-    pass
+
+def whatis(modulefile):
+    """
+     Display the information set  up  by  the  module-
+     whatis     commands    inside    the    specified
+     modulefile(s). If no modulefile is specified, all
+     'whatis' lines will be shown.
+    """
+    return module('whatis {0}'.format(modulefile))
+
 
 # Module file API
 def isloaded(modulefile):
