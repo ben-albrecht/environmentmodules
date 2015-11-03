@@ -3,11 +3,35 @@ from __future__ import print_function
 import os, re, subprocess, shlex
 from subprocess import Popen, PIPE
 
+# Environment Variables
+_home = os.getenv('HOME')
+moduleshome = os.getenv('MODULESHOME')
+modulespath = os.getenv('MODULESPATH')
+loadedmodules = os.getenv('LOADEDMODULES')
+lmfiles_ = os.getenv('_LMFILES_')
+modulesbeginenv = os.getenv('MODULESBEGINENV')
+modulesbeginenv_ = os.getenv('_MODULESBEGINENV_')
+
+
+# File paths
+filepath = {
+    #'moduleshome'         : TODO /usr/local/Cellar/modules/3.2.10/Modules
+    'rc'                  : os.path.join(moduleshome, 'etc/rc'),
+    'modulerc'            : os.path.join(_home, '.modulerc'),
+    'modulefiles'         : os.path.join(moduleshome, 'modulefiles'),
+    'modulecmd'           : os.path.join(moduleshome, 'bin/modulecmd'),
+    #'shell'               : TODO os.path.join(moduleshome, '.init/shell'),
+    'moduleavailcache'    : os.path.join(moduleshome, '.moduleavailcache'),
+    'moduleavailcachedir' : os.path.join(moduleshome, '.moduleavailcachedir'),
+    'modulesbeginenv'     : os.path.join(_home, '.modulesbeginenv'),
+    }
+
+
 # Modified Environment Module python module
 def _setup():
     """Setup and confirmation that Environment Modules is installed"""
     # Make sure MODULEPATH is defined
-    if not os.environ.has_key('MODULEPATH'):
+    if 'MODULEPATH' not in os.environ.keys():
         f = open(os.environ['MODULESHOME'] + "/init/.modulespath", "r")
         path = []
         for line in f.readlines():
@@ -17,7 +41,7 @@ def _setup():
         os.environ['MODULEPATH'] = ':'.join(path)
 
     # Make sure LOADEDMODULES is defined
-    if not os.environ.has_key('LOADEDMODULES'):
+    if 'LOADEDMODULES' not in os.environ.keys():
         os.environ['LOADEDMODULES'] = ''
 
     # Make sure MODULESHOME is defined
@@ -55,7 +79,7 @@ def module(*args):
 
     exec(output)
 
-    return moduleoutput
+    return moduleoutput.decode()
 
 
 # A partial set of wrapper scripts for module
@@ -68,6 +92,11 @@ def help(modulefile, flags=''):
      information for the modulefile(s).
     """
     return module('help {0} {1}'.format(modulefile, flags))
+
+
+def version():
+    """Version of modules"""
+    return module('--v')
 
 
 def load(modulefile, flags=''):
@@ -229,7 +258,6 @@ def whatis(modulefile):
 # Module file API
 def isloaded(modulefile):
     return bool([m for m in ls() if modulefile in m])
-
 
 """
 Flags
