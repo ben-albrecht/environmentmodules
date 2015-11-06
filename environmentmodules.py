@@ -85,13 +85,16 @@ def module(*args):
 # A partial set of wrapper scripts for module
 
 # Command line API
-def help(modulefile, flags=''):
+def printhelp(modulefile, flags=''):
     """
      Print  the  usage  of  each  sub-command.   If an
      argument is given, print the Module-specific help
      information for the modulefile(s).
+
+     Currently, 'module help' pipes to neither stdout, nor stderr,
+     so this function returns nothing!
     """
-    return module('help {0} {1}'.format(modulefile, flags))
+    module('help {0} {1}'.format(modulefile, flags))
 
 
 def version():
