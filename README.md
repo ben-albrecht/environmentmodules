@@ -7,20 +7,16 @@ Here's a little taste:
 
 ```python
 import environmentmodules as mod
-    
+
 # module load gcc/3.1.1
 mod.load('gcc/3.1.1')
 
 mod.switch('gcc', 'gcc/3.2.0')
 
 mod.unload('gcc')
-```
 
-Enjoy the luxuries of other functionality normally limited to modulefiles:
-
-```python
 if mod.isloaded('gcc-5'):
-	print('gcc-5 loaded successfully!')
+    print('gcc-5 loaded successfully!')
 ```
 
 #### Advantages over the python module provided by Environment Modules:
