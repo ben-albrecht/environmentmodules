@@ -23,4 +23,4 @@ if mod.isloaded('gcc-5'):
 * Pythonic API
 * A proper setup.py (rather than manually appending to `sys.path` or `$PYTHONPATH`)
 * Extended functionality to modulefile-specific calls, i.e. `mod.isloaded('foo')`
-* That package is not named `python`
+* The package is not named `python`
