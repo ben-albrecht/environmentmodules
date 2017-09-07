@@ -1,5 +1,5 @@
 # environmentmodules
-Python interface for the [Environment Modules Project](https://github.com/cea-hpc/modules)
+Python interface for [Environment Modules](https://github.com/cea-hpc/modules)
 
 
 ## Why?
