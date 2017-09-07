@@ -1,9 +1,12 @@
 # environmentmodules
-Python API for the [Environment Modules Project](http://modules.sourceforge.net/)
+Python interface for the [Environment Modules Project](https://github.com/cea-hpc/modules)
 
-I was unhappy with the Python module provided by Environment Modules (poorly named `python`), so I created my own Python module.
 
-Here's a little taste:
+## Why?
+
+I needed to test some modulefiles, and found the builtin `python` module insufficient, so I created this as a cleaner interface with a more reasonable build process.
+
+## Example
 
 ```python
 import environmentmodules as mod
@@ -18,9 +21,3 @@ mod.unload('gcc')
 if mod.isloaded('gcc-5'):
     print('gcc-5 loaded successfully!')
 ```
-
-#### Advantages over the python module provided by Environment Modules:
-* Pythonic API
-* A proper setup.py (rather than manually appending to `sys.path` or `$PYTHONPATH`)
-* Extended functionality to modulefile-specific calls, i.e. `mod.isloaded('foo')`
-* The package is not named `python`
